@@ -25,6 +25,10 @@ import {
     ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+
+
+
+
 let width = Dimensions.get('window').width; 
 let height = Dimensions.get('window').height; 
 
@@ -74,10 +78,8 @@ const Default = ({navigation}) => {
             <View style={{
                 position:"absolute",
                 bottom: 80
-            }}>
-
+            }}> 
                     <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
-                        
                         <Text style={{color:"white"}}>Login</Text>
                     </TouchableOpacity>
                     

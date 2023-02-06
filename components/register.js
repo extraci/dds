@@ -12,6 +12,7 @@ import {
     InputAccessoryView, 
     TextInput,
     TouchableOpacity,
+    Alert
 
 } from 'react-native';
 // 
@@ -75,15 +76,20 @@ const styles = StyleSheet.create({
 let width = Dimensions.get('window').width;
 let height = Dimensions.get('window').height;
 
-const Register = () => {
+const Register = ({navigation}) => {
     const [email, setEmail] = useState("");
 
     const [password, setPassword] = useState("");
+    const [name, setName] = useState("");
     const [mobile, setMobile] = useState("");
 
+    let status_ok = false;
     return (
        <View style={styles.container}>
             <StatusBar style="auto" />
+            <View style={styles.inputView}>
+                <TextInput style={styles.TextInput} placeholder="Name" placeholderTextColor="#003f5c" onChangeText={(name) => setName(name)}/>
+            </View>
             <View style={styles.inputView}>
                 <TextInput style={styles.TextInput} placeholder="Email" placeholderTextColor="#003f5c" onChangeText={(email) => setEmail(email)}/>
             </View>
@@ -97,7 +103,51 @@ const Register = () => {
                 <Text style={styles.forgot_button}>Forgot Password?</Text>
             </TouchableOpacity>
             
-            <TouchableOpacity style={styles.loginBtn}>
+            <TouchableOpacity style={styles.loginBtn} onPress={function(){
+
+                if (name && email && password && mobile){
+                    fetch('http://192.168.1.36:8000/api/register',{
+                            method:"POST",
+                            headers: {
+                                'Accept':'application/json',
+                                'Content-Type':'application/json'
+                            },
+                            body: JSON.stringify({name:name,email:email,password:password,c_password:password})
+                        }
+                    ).then((response)=>{
+                        console.log(response);
+                        if (response.status == "200"){ status_ok = true; }
+
+                        return response.json()
+
+                    }).then((data)=> {
+                        console.log(data)
+                        if (status_ok){
+                            Alert.alert('Account Created Successfully','', [
+                                {
+                                    text: '',
+                                    onPress: () => console.log('Cancel Pressed'),
+                                    style: 'cancel',
+                                },
+                                {text: 'OK', onPress: () => console.log('OK Pressed')},
+                            ]);
+                            navigation.navigate('Dashboard')
+                        }else{
+
+                        }
+                    });
+                }else{
+                    Alert.alert('Fields Missing', 'some fields are missing from the register page ,kindly check.', [
+                        {
+                            text: 'Cancel',
+                            onPress: () => console.log('Cancel Pressed'),
+                            style: 'cancel',
+                        },
+                        {text: 'OK', onPress: () => console.log('OK Pressed')},
+                    ]);
+                }
+
+            }}>
                 <Text style={styles.loginText}>Register</Text>
             </TouchableOpacity>
         </View>

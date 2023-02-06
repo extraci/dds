@@ -32,12 +32,19 @@ import {
 import Default from './components/default.js';
 import Login from './components/login.js';
 import Register from './components/register.js';
+import Dashboard from './components/dashboard.js';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 
+
 const Stack = createNativeStackNavigator();
+
+
+
+
+const AuthContext = React.createContext();
 
 let width = Dimensions.get('window').width;
 let height = Dimensions.get('window').height;
@@ -61,7 +68,12 @@ const App =  () => {
                     <Stack.Screen
                         name="Register"
                         component={Register}
-                        options={{title: 'Sign Up'}}
+                        options={{title: 'Register'}}
+                    />
+                    <Stack.Screen
+                        name="Dashboard"
+                        component={Dashboard}
+                        options={{title: 'Dashboard'}}
                     />
                 </Stack.Navigator>
             </NavigationContainer>
