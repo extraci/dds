@@ -96,7 +96,8 @@ export default function Login({navigation}){
                 <Text style={styles.forgot_button}>Forgot Password?</Text>
             </TouchableOpacity>
             
-            <TouchableOpacity style={styles.loginBtn} onPress={function(){
+            <TouchableOpacity style={styles.loginBtn} onPress={async function(){
+
 
                 if (email && password){
                     console.log(email,password);
@@ -115,10 +116,7 @@ export default function Login({navigation}){
                         return response.json()
 
                     }).then((data)=> {
-                        let b = Buffer.from(JSON.stringify(data.success.token)).toString("base64");
-                        console.log(b)
-                        const jsonString = Buffer.from(b,'base64').toString()
-                        console.log(jsonString)
+                        console.log(data.success.token)
                         if (status_ok){
                             Alert.alert('Logged in Successfully','', [
                                 {
@@ -128,7 +126,7 @@ export default function Login({navigation}){
                                 },
                                 {text: 'OK', onPress: () => console.log('OK Pressed')},
                             ]);
-                            navigation.navigate('Dashboard')
+                            navigation.navigate('Dashboard',{token:data.success.token,name:data.success.name})
                         }
                     });
 

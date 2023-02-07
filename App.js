@@ -73,7 +73,7 @@ const App =  () => {
                     <Stack.Screen
                         name="Dashboard"
                         component={Dashboard}
-                        options={{title: 'Dashboard'}}
+                        options={{title: 'Dashboard',headerBackVisible:false}}
                     />
                 </Stack.Navigator>
             </NavigationContainer>

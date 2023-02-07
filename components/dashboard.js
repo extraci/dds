@@ -25,9 +25,7 @@ import {
 // 
 import React from "react";
 import {useState} from "react";
-
-
-
+// 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -75,17 +73,17 @@ const styles = StyleSheet.create({
 let width = Dimensions.get('window').width;
 let height = Dimensions.get('window').height;
 
-const Dashboard = ({navigation}) => {
+const Dashboard = ({route,navigation}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
     const [mobile, setMobile] = useState("");
-
     let status_ok = false;
     return (
+
        <View style={styles.container}>
             <StatusBar style="auto" />
-            <Text>Hello User </Text>
+            <Text>Hello {route.params.name} !</Text>
         </View>
     );
 }
